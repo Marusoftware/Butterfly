@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "butterfly"
+version = "beta0.0.1-pre"
+authors = [
+    "Marusoftware <marusoftware@outlook.jp>",
+]
+description = "The Next Dimension Package Manager."
+
+packages = [
+    { include="core", from="."}
+]
+
+[tool.poetry.dependencies]
+
+[tool.poetry.dev-dependencies]
+pylint = "^2.6.0"
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
