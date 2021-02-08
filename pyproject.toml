@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "butterfly"
-version = "0.0.1"
+version = "beta0.0.1-pre"
 authors = [
-    "Marusoftware <marudoftware@outlook.jp>",
+    "Marusoftware <marusoftware@outlook.jp>",
 ]
 description = "The Next Dimension Package Manager."
 
