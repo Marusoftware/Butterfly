@@ -15,14 +15,14 @@ class Package():
     def uninstall(self, module):
         module = module.split(self.sptxt)
     def addsource(self, source):
-        module = module.split(self.sptxt)
+        source = source.split(self.sptxt)
     #def build(self, module):
     #    module = module.split(self.sptxt)
 
 class Dir():
     def __init__(self):
         self.base_dir = ""
-    def get_module_Dir(self, module):
+    def get_module_Dir(self, module_name):
         os.path.join(self.base_dir ,module_name)
     def get_globalconf_Dir(self):
         return 
@@ -39,8 +39,10 @@ class Config():
         else:
             raise TypeError
     def setPermittion(self, to):
-        if 
+        #if
+        pass 
     def _permition(self):
         return 1
     class _Pickle():
-        self.config = open()
+        def __init__(self):
+            self.config = open()

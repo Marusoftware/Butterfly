@@ -1,5 +1,5 @@
 import os, sys
-import argparse, configparser
+import argparse, configparser, logging
 import libbutterfly
 
 __version__ = "beta0.0.1-pre"
@@ -37,19 +37,31 @@ class UI():
         def __init__(self):
             pass
 
+    class API_SOCKET():
+        def __init__(self):
+            pass
+
+class DAEMON():
+    def __init__(self):
+        pass
+
 class CORE():
     def __init__(self, args=None):
         self.args = args
-        self.
         self._argparse()
-        if sys.version_info[0] == 3 or sys.version_info[1] >= 5:
-            print("Error: Python version is too old!¥nIf you want to continue, please use '--disable-pyvercheck'")
-            print(sys.version)
+        if sys.version_info[0] < 3 or sys.version_info[1] < 5: # python version check
+            print("Error: Python version is too old! If you want to continue, please use '--disable-pyvercheck'", file=sys.stderr)
+            print(sys.version, file=sys.stderr)
             if not self.args.dispyvchk: sys.exit(1)
         if self.args.version:
             print(__version__)
             sys.exit()
-        self._logging()
+        self._logging()#todo:daemon start code
+        self.logger.info("Starting UI...")#todo:ui start code
+        if self.args.ui == "auto":
+            pass
+        else:
+            self.logger.info("Started UI "+self.args.ui)
     
     def _argparse(self):
         self.arg_parser = argparse.ArgumentParser()
@@ -60,32 +72,18 @@ class CORE():
         self.arg_parser.log = self.arg_parser.add_argument_group("LOG")
         parser.add_argument("-log_dir", action="store", type=str, dest="log_dir")
         parser.add_argument("-log_path", action="store", type=str, dest="log_path")
-        parser.add_argument("-log_level", action="store_true", dest="log_level")
-        self.arg_parser.ui = self.arg_parser.add_argument_group("UI")
-        parser = self.arg_parser.ui 
-        def arg_ui(i):
-            if i[0] == "[":
-                return list(i)
-            else:
-                return str(i)
-        parser.add_argument("-ui", action="store", type=arg_ui, dest="ui")
-        parser.add_argument("--tui", action="store_true")
-        parser.add_argument("--tui_p", action="store_true")
-        parser.add_argument("--cui", action="store_true")
-        parser.add_argument("--shell", action="store_true")
-        parser.add_argument("--socket", action="store_true")
-        parser.add_argument("--gui", action="store_false")
+        parser.add_argument("-log_level", action="store_true", dest="log_level")#todo:stdoutlog
+        parser.add_argument("-ui", action="store", type=str, dest="ui", default="auto")
         self.args = self.arg_parser.parse_args(self.args)
     def _logging(self):
         if self.args.log_path != None:
             pass
-        logging.BasicConfig(format='%(levelname)s:%(asctime)s:%(name)s| ')
+        logging.basicConfig(format='%(levelname)s(%(asctime)s,%(name)s): %(message)s', level=self.args.log_level)
         self.logger = logging.getLogger(__name__)
+        self.logger.info("Start Logging")
 
 class ENVIRON():
-    class Python2():
-        pass
-    class Python3():
+    def __init__(self):
         pass
 
 if __name__ == "__main__":
