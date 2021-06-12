@@ -1,6 +1,8 @@
-import os, sys
+import os, sys, pickle, json
 
 __version__ = "beta0.0.1-pre"
+
+standaloned=0
 
 class Butterfly():
     def __init__(self):
@@ -27,22 +29,39 @@ class Dir():
     def get_globalconf_Dir(self):
         return 
 
-class Config():
-    def __init__(self, ftype, module, fmode="default"):
-        self.type = ftype
-        self.module = module
-        self._permition()
-        if ftype == "pickle":
-            pass
-        elif ftype=="ini":
-            pass
+class Exception():
+    class InvalidConfig(Exception): pass
+
+class _Config():
+    def __init__(self, module_name, mode="r"):
+        global standaloned
+        self.mode = mode
+        self.module = module_name
+        self.userconf={}
+        self.bflyconf={}
+        self.moduleconf={}
+        self.standaloned = os.path.exists("./standalone")
+        standaroned = self.standaloned
+        if "r" in self.mode:
+            if os.path.exists("./bfly_config.pickle"):
+                try:
+                    conf = pickle.load(open("./bfly_config.pickle", "rb"))
+                except:
+                    raise 
+            elif os.path.exists("./bfly_config.json"):
+                conf = json.load(open("./bfly_config.json", "rb"))
+            else:
+                conf = None
+            if conf:
+                if "bfly" in conf:
+                    self.bflyconf = conf["bfly"]
+                    if "userconf" in self.bflyconf:
+                        if self.bflyconf["userconf"] == "__this__":
+                            self.userconf = conf["user"]
+                        elif os.path.exists(self.bflyconf["userconf"]):
+                            self.userconf=pickle.load(open(self.bflyconf["userconf"], "r"))
         else:
             raise TypeError
-    def setPermittion(self, to):
-        #if
-        pass 
-    def _permition(self):
-        return 1
     class _Pickle():
         def __init__(self):
             self.config = open()
