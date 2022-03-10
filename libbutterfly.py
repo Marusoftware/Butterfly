@@ -41,7 +41,7 @@ class _Config():
         self.bflyconf={}
         self.moduleconf={}
         self.standaloned = os.path.exists("./standalone")
-        standaroned = self.standaloned
+        standaloned = self.standaloned
         if "r" in self.mode:
             if os.path.exists("./bfly_config.pickle"):
                 try:
@@ -62,6 +62,3 @@ class _Config():
                             self.userconf=pickle.load(open(self.bflyconf["userconf"], "r"))
         else:
             raise TypeError
-    class _Pickle():
-        def __init__(self):
-            self.config = open()
